@@ -1,0 +1,1052 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"WalletType": {
+				"enum": [
+					"ETH",
+					"BTC",
+					"MONERO",
+					"USDT",
+					"USDC"
+				],
+				"type": "string"
+			},
+			"Wallet": {
+				"properties": {
+					"type": {
+						"$ref": "#/components/schemas/WalletType"
+					},
+					"balance": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"type",
+					"balance"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"User": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"email",
+					"createdAt",
+					"updatedAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ServiceAccountType": {
+				"enum": [
+					"CFE",
+					"TotalPlay",
+					"VeTv",
+					"dish",
+					"Megacable",
+					"Sky",
+					"Telcel",
+					"Movistar",
+					"Unefon",
+					"ATT",
+					"VirginMobile",
+					"CashWithdrawl"
+				],
+				"type": "string"
+			},
+			"ServiceAccount": {
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"accountIdentifier": {
+						"type": "string"
+					},
+					"nickname": {
+						"type": "string"
+					},
+					"accountType": {
+						"$ref": "#/components/schemas/ServiceAccountType"
+					}
+				},
+				"required": [
+					"id",
+					"accountIdentifier",
+					"nickname",
+					"accountType"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"PaymentState": {
+				"enum": [
+					"Pending",
+					"Completed",
+					"Failed"
+				],
+				"type": "string"
+			},
+			"Payment": {
+				"properties": {
+					"fiatAmount": {
+						"properties": {
+							"total": {
+								"type": "number",
+								"format": "double"
+							},
+							"fees": {
+								"type": "number",
+								"format": "double"
+							},
+							"subtotal": {
+								"type": "number",
+								"format": "double"
+							},
+							"fiatCurrencyCode": {
+								"type": "string"
+							}
+						},
+						"required": [
+							"total",
+							"fees",
+							"subtotal",
+							"fiatCurrencyCode"
+						],
+						"type": "object"
+					},
+					"sourceWalletType": {
+						"$ref": "#/components/schemas/WalletType"
+					},
+					"sourceAmount": {
+						"type": "number",
+						"format": "double"
+					},
+					"serviceAccountType": {
+						"$ref": "#/components/schemas/ServiceAccount"
+					},
+					"date": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"state": {
+						"$ref": "#/components/schemas/PaymentState"
+					},
+					"stateChangeHistory": {
+						"items": {
+							"properties": {
+								"date": {
+									"type": "string",
+									"format": "date-time"
+								},
+								"state": {
+									"$ref": "#/components/schemas/PaymentState"
+								}
+							},
+							"required": [
+								"date",
+								"state"
+							],
+							"type": "object"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"fiatAmount",
+					"sourceWalletType",
+					"sourceAmount",
+					"serviceAccountType",
+					"date",
+					"state",
+					"stateChangeHistory"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"jwt": {
+				"type": "apiKey",
+				"name": "Authorization",
+				"in": "header"
+			}
+		}
+	},
+	"info": {
+		"title": "cryptopay",
+		"version": "1.0.0",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {}
+	},
+	"paths": {
+		"/{user_id}/wallets": {
+			"get": {
+				"operationId": "List",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Wallet"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Wallets"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/{user_id}/wallets/enough-balance": {
+			"post": {
+				"operationId": "ListWithEnoughBalance",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Wallet"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Wallets"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"currencyCode": {
+										"type": "string"
+									},
+									"fiat": {
+										"type": "number",
+										"format": "double"
+									}
+								},
+								"required": [
+									"currencyCode",
+									"fiat"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/{user_id}/wallets/{wallet_type}/balance": {
+			"get": {
+				"operationId": "Balance",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "number",
+									"format": "double"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Wallets"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "wallet_type",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/WalletType"
+						}
+					}
+				]
+			}
+		},
+		"/{user_id}/wallets/{wallet_type}/deposit/address": {
+			"get": {
+				"operationId": "Deposit",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Wallets"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "wallet_type",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/WalletType"
+						}
+					}
+				]
+			}
+		},
+		"/{user_id}/wallets/{wallet_type}/withdraw": {
+			"post": {
+				"operationId": "Withdraw",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{},
+										{
+											"type": "string"
+										}
+									]
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request - Invalid parameters",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								},
+								"examples": {
+									"Example 1": {}
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Bad Request - Insufficient funds",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								},
+								"examples": {
+									"Example 1": {}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Wallets"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "wallet_type",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/WalletType"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"destinationAddress": {
+										"type": "string"
+									},
+									"amount": {
+										"type": "number",
+										"format": "double"
+									}
+								},
+								"required": [
+									"destinationAddress",
+									"amount"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/signup": {
+			"post": {
+				"operationId": "Signup",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"lastName": {
+										"type": "string"
+									},
+									"firstName": {
+										"type": "string"
+									},
+									"password": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"lastName",
+									"firstName",
+									"password",
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"password": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"password",
+									"email"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/{user_id}/payments": {
+			"get": {
+				"operationId": "AccountPayments",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Payment"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Payments"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/{user_id}/payments/service-accounts": {
+			"get": {
+				"operationId": "List",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/ServiceAccount"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Payments"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/{user_id}/payments/{service_account_id}/pay": {
+			"post": {
+				"operationId": "Pay",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{}
+									]
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request - Invalid parameters",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								},
+								"examples": {
+									"Example 1": {}
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Bad Request - Insufficient funds",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								},
+								"examples": {
+									"Example 1": {}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Payments"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "path",
+						"name": "service_account_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"sourceWalletType": {
+										"$ref": "#/components/schemas/WalletType"
+									},
+									"currencyCode": {
+										"type": "string"
+									},
+									"amount": {
+										"type": "number",
+										"format": "double"
+									}
+								},
+								"required": [
+									"sourceWalletType",
+									"currencyCode",
+									"amount"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/{user_id}/payments/one-time-payment/pay": {
+			"post": {
+				"operationId": "OneTimePayment",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{}
+									]
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request - Invalid parameters",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								},
+								"examples": {
+									"Example 1": {}
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Bad Request - Insufficient funds",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								},
+								"examples": {
+									"Example 1": {}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Payments"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"saveServiceAccount": {
+										"type": "boolean"
+									},
+									"serviceAccountNickname": {
+										"type": "string"
+									},
+									"serviceAccountIdentifier": {
+										"type": "string"
+									},
+									"serviceAccountType": {
+										"$ref": "#/components/schemas/ServiceAccountType"
+									},
+									"sourceWalletType": {
+										"$ref": "#/components/schemas/WalletType"
+									},
+									"currencyCode": {
+										"type": "string"
+									},
+									"amount": {
+										"type": "number",
+										"format": "double"
+									}
+								},
+								"required": [
+									"saveServiceAccount",
+									"serviceAccountNickname",
+									"serviceAccountIdentifier",
+									"serviceAccountType",
+									"sourceWalletType",
+									"currencyCode",
+									"amount"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/{user_id}/payments/cash-withdrawal/oxxo": {
+			"post": {
+				"operationId": "CashWithdrawalOxxo",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"anyOf": [
+										{
+											"type": "string"
+										},
+										{}
+									]
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request - Invalid parameters",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								},
+								"examples": {
+									"Example 1": {}
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "Bad Request - Insufficient funds",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								},
+								"examples": {
+									"Example 1": {}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Payments"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"currencyCode": {
+										"type": "string"
+									},
+									"phoneNumber": {
+										"type": "string"
+									},
+									"sourceWalletType": {
+										"$ref": "#/components/schemas/WalletType"
+									},
+									"amount": {
+										"type": "number",
+										"format": "double"
+									}
+								},
+								"required": [
+									"currencyCode",
+									"phoneNumber",
+									"sourceWalletType",
+									"amount"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/{user_id}/payments/estimate": {
+			"post": {
+				"operationId": "Estimate",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request - Invalid parameters",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								},
+								"examples": {
+									"Example 1": {}
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Payments"
+				],
+				"security": [
+					{
+						"jwt": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "user_id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"serviceAccountType": {
+										"$ref": "#/components/schemas/ServiceAccountType"
+									},
+									"sourceWalletType": {
+										"$ref": "#/components/schemas/WalletType"
+									},
+									"currencyCode": {
+										"type": "string"
+									},
+									"amount": {
+										"type": "number",
+										"format": "double"
+									}
+								},
+								"required": [
+									"serviceAccountType",
+									"sourceWalletType",
+									"currencyCode",
+									"amount"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}

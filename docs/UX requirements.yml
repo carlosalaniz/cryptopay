@@ -1,0 +1,118 @@
+Signup:
+    - email
+    - password
+        - min_length: 8
+        - max_length: 20
+        - password
+            - min_length: 8
+            - max_length: 20
+            - regex: "^(?=.*[A-Z])(?=.*[!@#$%^&*]).+$"
+        - password_confirmation
+            - same_as: password
+    - password_confirmation
+        - same_as: password
+
+Login:
+    - email
+    - password
+
+Dashboard:
+    Pay service once button:
+        - select account_type
+        - account_number
+        - fiat amount
+        - fiat currency (defaults to MXN)
+        - select token to pay with (dropdown with available tokens and balances, only tokens with a balance high enough to cover the transaction can be selected)
+        Totals (read only):
+            - fiat amount
+            - fee percentage
+            - flat fee
+            - total fiat amount
+            - conversion rate
+            - token amount
+        - start payment button
+        After payment is started:
+            - payment status (queued, completed, failed)
+            - payment details (transaction hash, etc)
+            - checkbox to save account for future payments
+
+    Withdraw cash button:
+        - cash withdrawal service (only OXXO for now)
+        - cash withdrawal service logo
+        - phone number
+        - recipient name
+        - fiat amount (MXN)
+        - select token to withdraw with (dropdown with available tokens and balances, only tokens with a balance high enough to cover the transaction can be selected)
+        Totals (read only):
+            - fiat amount
+            - fee percentage
+            - flat fee
+            - total fiat amount
+            - conversion rate
+            - token amount
+        - start withdrawal button
+        After withdrawal is started:
+            - withdrawal status (queued, completed, failed)
+            - withdrawal details (transaction hash, etc)
+
+    List of possible accounts to pay with the following information:
+        - account_nickname
+        - account_number
+        - account_type
+        - account_actions
+            - queue payment
+        Queue payment modal (On click on account_actions -> queue payment):
+            - Account type logo ( CFE, Telcel, etc)
+            - Account number (read only)
+            Form:
+                - fiat amount
+                - fiat currency (defaults to MXN)
+                - select token to pay with (dropdown with available tokens and balances, only tokens with a balance high enough to cover the transaction can be selected)
+                Totals (read only):
+                    - fiat amount
+                    - fee percentage
+                    - flat fee
+                    - total fiat amount
+                    - conversion rate
+                    - token amount
+                - start payment button
+                After payment is started:
+                    - payment status (queued, completed, failed)
+                    - payment details (transaction hash, etc)
+
+    List of wallet balances: 
+        - token logo (USDC, BTC, ETH, etc)
+        - amount (balance)
+        - deposit button
+        - withdraw button (to transfer to another address)
+        Deposit modal (On click on deposit button):
+            - token logo
+            - token name
+            - wallet address
+            - copy address button
+            - QR code
+            - Message explaining that the deposit will be 
+            credited after 3 confirmations.
+        Withdraw modal (On click on transfer button):
+            - token logo
+            - token name
+            - recipient address
+            - amount
+            - transfer button
+            After transfer is completed:
+                - transfer status (queued, completed, failed)
+                - transfer details (transaction hash, etc)
+
+Profile:
+    Remove Account:
+        - account_nickname
+    Add Accounts:
+        Add account menu:
+            Possible errors:
+                - nick name already exists
+                - account number already exists
+                - account number is invalid
+            Fields:
+                - account_type
+                - account_nickname
+                - account_number
