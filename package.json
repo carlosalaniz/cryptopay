@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "npm run spec && tsc",
+    "start": "npm run build && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "spec": "tsoa spec-and-routes && npm run generate-api-client",
     "generate-api-client": "npx swagger-typescript-api -p ./src/swagger.json -o ./ -n ./api.ts --axios --single-http-client --extract-request-params --extract-request-body --extract-response-body --extract-response-error"
@@ -14,6 +16,7 @@
     "axios": "^1.6.8",
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "joi": "^17.13.1",
     "jsonwebtoken": "^9.0.2",
     "swagger-ui-express": "^5.0.0",
     "ts-node": "^10.9.2",

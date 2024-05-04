@@ -1,4 +1,5 @@
 import { Payment, PaymentState, ServiceAccount, ServiceAccountType } from "./controllers/service_accounts/service_accounts.types";
+import { User } from "./controllers/users/user.type";
 import { Wallet, WalletType } from "./controllers/wallets/wallet.types";
 
 export const wallets: Wallet[] = [
@@ -76,3 +77,9 @@ export const payments: Payment[] = [
     }
 ]
 
+export const user: User = {
+    id: 'aaaaa-aaaaa-aaaaa-aaaaa-aaaaa',
+    email: "user@email.com",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+}

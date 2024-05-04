@@ -1,6 +1,7 @@
 import { Controller, Route, Post, Body, Get, Tags, Security } from "tsoa";
 import { User } from "./user.type";
 import jwt from 'jsonwebtoken';
+import { user } from "../../data.fake";
 
 @Tags("Users")
 @Route('/users')
@@ -13,12 +14,7 @@ export class UserController extends Controller {
         lastName: string,
     }): Promise<User> {
         return jwt.sign(
-            {
-                id: 'aaaaa-aaaaa-aaaaa-aaaaa-aaaaa',
-                email: body.email,
-                createdAt: new Date(),
-                updatedAt: new Date(),
-            }, 'secret', { expiresIn: '1h' }
+            user, 'secret', { expiresIn: '1h' }
         )
     }
 
@@ -30,12 +26,7 @@ export class UserController extends Controller {
         }
     ): Promise<string> {
         return jwt.sign(
-            {
-                id: 'aaaaa-aaaaa-aaaaa-aaaaa-aaaaa',
-                email: body.email,
-                createdAt: new Date(),
-                updatedAt: new Date(),
-            }, 'secret', { expiresIn: '1h' }
+            user, 'secret', { expiresIn: '1h' }
         )
     }
 }
