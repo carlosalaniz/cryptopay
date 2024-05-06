@@ -5,18 +5,18 @@ import { WalletType } from "../wallets/wallet.types";
 
 
 @Tags("Payments")
-@Route('{user_id}/payments')
+@Route('payments')
 @Security('jwt')
 export class PaymentsController extends Controller {
 
-    @Get('/')
+    @Get('{user_id}')
     public async AccountPayments(
         @Path() user_id: string,
     ): Promise<Payment[]> {
         return payments;
     }
 
-    @Get('/service-accounts')
+    @Get('{user_id}/service-accounts')
     public async List(
         @Path() user_id: string,
     ): Promise<ServiceAccount[]> {
@@ -24,7 +24,7 @@ export class PaymentsController extends Controller {
     }
 
 
-    @Post('{service_account_id}/pay')
+    @Post('{user_id}/{service_account_id}/pay')
     @Response<string>('400', 'Bad Request - Invalid parameters')
     @Response<string>('409', 'Bad Request - Insufficient funds')
     public async Pay(
@@ -39,7 +39,7 @@ export class PaymentsController extends Controller {
         return
     }
 
-    @Post('/one-time-payment/pay')
+    @Post('{user_id}/one-time-payment/pay')
     @Response<string>('400', 'Bad Request - Invalid parameters')
     @Response<string>('409', 'Bad Request - Insufficient funds')
     public async OneTimePayment(
@@ -57,7 +57,7 @@ export class PaymentsController extends Controller {
         return
     }
 
-    @Post('/cash-withdrawal/oxxo')
+    @Post('{user_id}/cash-withdrawal/oxxo')
     @Response<string>('400', 'Bad Request - Invalid parameters')
     @Response<string>('409', 'Bad Request - Insufficient funds')
     public async CashWithdrawalOxxo(
@@ -72,7 +72,7 @@ export class PaymentsController extends Controller {
         return
     }
 
-    @Post('/estimate')
+    @Post('{user_id}/estimate')
     @Response<string>('400', 'Bad Request - Invalid parameters')
     public async Estimate(
         @Path() user_id: string,

@@ -1,0 +1,51 @@
+// Pico CSS
+@use "@picocss/pico/scss/pico" with ($enable-responsive-spacings: true);
+
+// Theme
+@use "commons/theme/default";
+
+// Layouts
+@use "commons/layout/header";
+@use "commons/layout/document";
+@use "commons/layout/footer";
+
+// Content
+@use "commons/content/code";
+
+// Components
+@use "commons/components/skip-to-content";
+@use "commons/components/logo";
+@use "commons/components/theme-toggle";
+@use "commons/components/chapter";
+@use "commons/components/card-component";
+
+
+#main-header {
+  #main-header-link {
+    color: var(--pico-contrast);
+    text-decoration: none;
+  }
+  a.active {
+    text-decoration: underline;
+  }
+}
+
+
+.full-element-loader-parent{
+  position: relative;
+}
+
+.full-element-loader{
+  // background: rgba(0, 0, 0, 0.75);
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}

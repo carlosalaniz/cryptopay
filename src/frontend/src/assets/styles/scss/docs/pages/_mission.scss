@@ -1,0 +1,17 @@
+@use "sass:map";
+@use "@picocss/pico/scss/settings" as *;
+
+/**
+ * Page: Mission
+ */
+
+main.page-mission {
+  blockquote {
+    max-width: 30em;
+    font-weight: 600;
+
+    footer {
+      font-weight: 400;
+    }
+  }
+}

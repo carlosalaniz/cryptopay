@@ -1,0 +1,15 @@
+@use "@picocss/pico/scss/colors" as *;
+@use "@picocss/pico/scss/settings" as *;
+
+/**
+ * Card component
+ */
+
+article {
+  &.component {
+    outline-color: var(#{$css-var-prefix}card-component-outline-color);
+    outline-style: solid;
+    outline-width: var(#{$css-var-prefix}card-component-outline-width);
+    background-color: transparent;
+  }
+}

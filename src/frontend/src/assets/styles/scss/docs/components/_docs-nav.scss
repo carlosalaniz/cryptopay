@@ -1,0 +1,16 @@
+@use "sass:map";
+@use "@picocss/pico/scss/settings" as *;
+
+main > aside > nav {
+  details {
+    > summary,
+    > ul li a:not([role="button"]) {
+      &:focus-visible:not([role]) {
+        outline: 0;
+        box-shadow: none;
+        color: var(#{$css-var-prefix}primary-hover);
+        text-decoration: underline;
+      }
+    }
+  }
+}

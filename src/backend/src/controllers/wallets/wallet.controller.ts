@@ -5,17 +5,17 @@ import { Wallet, WalletType } from './wallet.types';
 
 
 @Tags("Wallets")
-@Route("{user_id}/wallets")
+@Route("wallets")
 @Security('jwt')
 export class WalletController extends Controller {
-    @Get('/')
+    @Get('{user_id}')
     public async List(
         @Path() user_id: string,
     ): Promise<Wallet[]> {
         return wallets;
     }
 
-    @Post('/enough-balance')
+    @Post('{user_id}/enough-balance')
     public async ListWithEnoughBalance(
         @Path() user_id: string,
         @Body() body: {
@@ -26,7 +26,7 @@ export class WalletController extends Controller {
         return wallets;
     }
 
-    @Get('{wallet_type}/balance')
+    @Get('{user_id}/{wallet_type}/balance')
     public async Balance(
         @Path() user_id: string,
         @Path() wallet_type: WalletType,
@@ -34,7 +34,7 @@ export class WalletController extends Controller {
         return wallets.filter(w => w.type === wallet_type)[0]?.balance || 0;
     }
 
-    @Get('{wallet_type}/deposit/address')
+    @Get('{user_id}/{wallet_type}/deposit/address')
     public async Deposit(
         @Path() user_id: string,
         @Path() wallet_type: WalletType,
@@ -42,7 +42,7 @@ export class WalletController extends Controller {
         return '0x1234567890'
     }
 
-    @Post('{wallet_type}/withdraw')
+    @Post('{user_id}/{wallet_type}/withdraw')
     @Response<void>('200', 'Withdrawal successful')
     @Response<string>('400', 'Bad Request - Invalid parameters')
     @Response<string>('409', 'Bad Request - Insufficient funds')

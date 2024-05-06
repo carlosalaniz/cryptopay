@@ -1,0 +1,47 @@
+{
+    "undefined": "No definido",
+    "loading": "Cargando...",
+    "header": {
+        "register": "Crear cuenta",
+        "login": "Iniciar sesión"
+    },
+    "errors": {
+        "fiat_amount_out_of_range": "Rango no válido. [min: {min}, max: {max}]"
+    },
+    "pay_once": {
+        "time_expired": "El tiempo para realizar la transacción ha expirado. Presiona Ok para reiniciar la transacción, cancelar para regresar.",
+        "time_left": "Tiempo Restante: ",
+        "title": "Pago Único",
+        "label": {
+            "account_type": "Tipo de Cuenta",
+            "account_number": "Número de Cuenta",
+            "fiat_amount": "Cantidad de Fiat",
+            "fiat_currency": "Moneda Fiat",
+            "token_to_pay_with": "Token para Pagar"
+        },
+        "option": {
+            "select_token": "Seleccionar Token"
+        },
+        "currency": {
+            "mxn": "Peso Mexicano",
+            "usd": "Dólar Americano",
+            "eur": "Euro",
+            "jpy": "Yen Japonés"
+        },
+        "table": {
+            "totals": "Totales",
+            "fiat_amount": "Cantidad de Fiat",
+            "fee_percentage": "Porcentaje de Comisión",
+            "flat_fee": "Comisión Fija",
+            "total_fiat_amount": "Total en Fiat",
+            "conversion_rate": "Tasa de Conversión",
+            "token_amount": "Cantidad de Token"
+        },
+        "checkbox": {
+            "save_account": "Guardar Cuenta"
+        },
+        "button": {
+            "start_payment": "Iniciar Pago"
+        }
+    }
+}

@@ -1,0 +1,2 @@
+@use "../utils/css-vars-from-theme" as *;
+@include generate-theme("Purple", "purple");

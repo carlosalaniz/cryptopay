@@ -1,0 +1,17 @@
+@use "sass:map";
+@use "@picocss/pico/scss/settings" as *;
+
+.fade-in {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+  animation-name: fade-in;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -88,7 +88,7 @@ export function RegisterRoutes(app: Router) {
     //  NOTE: If you do not see routes for all of your controllers in this file, then you might not have informed tsoa of where to look
     //      Please look into the "controllerPathGlobs" config option described in the readme: https://github.com/lukeautry/tsoa
     // ###########################################################################################################
-        app.get('/:user_id/wallets',
+        app.get('/wallets/:user_id',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(WalletController)),
             ...(fetchMiddlewares<RequestHandler>(WalletController.prototype.List)),
@@ -119,7 +119,7 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.post('/:user_id/wallets/enough-balance',
+        app.post('/wallets/:user_id/enough-balance',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(WalletController)),
             ...(fetchMiddlewares<RequestHandler>(WalletController.prototype.ListWithEnoughBalance)),
@@ -151,7 +151,7 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/:user_id/wallets/:wallet_type/balance',
+        app.get('/wallets/:user_id/:wallet_type/balance',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(WalletController)),
             ...(fetchMiddlewares<RequestHandler>(WalletController.prototype.Balance)),
@@ -183,7 +183,7 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/:user_id/wallets/:wallet_type/deposit/address',
+        app.get('/wallets/:user_id/:wallet_type/deposit/address',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(WalletController)),
             ...(fetchMiddlewares<RequestHandler>(WalletController.prototype.Deposit)),
@@ -215,7 +215,7 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.post('/:user_id/wallets/:wallet_type/withdraw',
+        app.post('/wallets/:user_id/:wallet_type/withdraw',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(WalletController)),
             ...(fetchMiddlewares<RequestHandler>(WalletController.prototype.Withdraw)),
@@ -308,7 +308,7 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/:user_id/payments',
+        app.get('/payments/:user_id',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(PaymentsController)),
             ...(fetchMiddlewares<RequestHandler>(PaymentsController.prototype.AccountPayments)),
@@ -339,7 +339,7 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.get('/:user_id/payments/service-accounts',
+        app.get('/payments/:user_id/service-accounts',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(PaymentsController)),
             ...(fetchMiddlewares<RequestHandler>(PaymentsController.prototype.List)),
@@ -370,7 +370,7 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.post('/:user_id/payments/:service_account_id/pay',
+        app.post('/payments/:user_id/:service_account_id/pay',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(PaymentsController)),
             ...(fetchMiddlewares<RequestHandler>(PaymentsController.prototype.Pay)),
@@ -403,7 +403,7 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.post('/:user_id/payments/one-time-payment/pay',
+        app.post('/payments/:user_id/one-time-payment/pay',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(PaymentsController)),
             ...(fetchMiddlewares<RequestHandler>(PaymentsController.prototype.OneTimePayment)),
@@ -435,7 +435,7 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.post('/:user_id/payments/cash-withdrawal/oxxo',
+        app.post('/payments/:user_id/cash-withdrawal/oxxo',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(PaymentsController)),
             ...(fetchMiddlewares<RequestHandler>(PaymentsController.prototype.CashWithdrawalOxxo)),
@@ -467,7 +467,7 @@ export function RegisterRoutes(app: Router) {
             }
         });
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-        app.post('/:user_id/payments/estimate',
+        app.post('/payments/:user_id/estimate',
             authenticateMiddleware([{"jwt":[]}]),
             ...(fetchMiddlewares<RequestHandler>(PaymentsController)),
             ...(fetchMiddlewares<RequestHandler>(PaymentsController.prototype.Estimate)),

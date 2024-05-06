@@ -204,7 +204,7 @@
 		"contact": {}
 	},
 	"paths": {
-		"/{user_id}/wallets": {
+		"/wallets/{user_id}": {
 			"get": {
 				"operationId": "List",
 				"responses": {
@@ -242,7 +242,7 @@
 				]
 			}
 		},
-		"/{user_id}/wallets/enough-balance": {
+		"/wallets/{user_id}/enough-balance": {
 			"post": {
 				"operationId": "ListWithEnoughBalance",
 				"responses": {
@@ -303,7 +303,7 @@
 				}
 			}
 		},
-		"/{user_id}/wallets/{wallet_type}/balance": {
+		"/wallets/{user_id}/{wallet_type}/balance": {
 			"get": {
 				"operationId": "Balance",
 				"responses": {
@@ -347,7 +347,7 @@
 				]
 			}
 		},
-		"/{user_id}/wallets/{wallet_type}/deposit/address": {
+		"/wallets/{user_id}/{wallet_type}/deposit/address": {
 			"get": {
 				"operationId": "Deposit",
 				"responses": {
@@ -390,7 +390,7 @@
 				]
 			}
 		},
-		"/{user_id}/wallets/{wallet_type}/withdraw": {
+		"/wallets/{user_id}/{wallet_type}/withdraw": {
 			"post": {
 				"operationId": "Withdraw",
 				"responses": {
@@ -583,7 +583,7 @@
 				}
 			}
 		},
-		"/{user_id}/payments": {
+		"/payments/{user_id}": {
 			"get": {
 				"operationId": "AccountPayments",
 				"responses": {
@@ -621,7 +621,7 @@
 				]
 			}
 		},
-		"/{user_id}/payments/service-accounts": {
+		"/payments/{user_id}/service-accounts": {
 			"get": {
 				"operationId": "List",
 				"responses": {
@@ -659,7 +659,7 @@
 				]
 			}
 		},
-		"/{user_id}/payments/{service_account_id}/pay": {
+		"/payments/{user_id}/{service_account_id}/pay": {
 			"post": {
 				"operationId": "Pay",
 				"responses": {
@@ -760,7 +760,7 @@
 				}
 			}
 		},
-		"/{user_id}/payments/one-time-payment/pay": {
+		"/payments/{user_id}/one-time-payment/pay": {
 			"post": {
 				"operationId": "OneTimePayment",
 				"responses": {
@@ -869,7 +869,7 @@
 				}
 			}
 		},
-		"/{user_id}/payments/cash-withdrawal/oxxo": {
+		"/payments/{user_id}/cash-withdrawal/oxxo": {
 			"post": {
 				"operationId": "CashWithdrawalOxxo",
 				"responses": {
@@ -966,7 +966,7 @@
 				}
 			}
 		},
-		"/{user_id}/payments/estimate": {
+		"/payments/{user_id}/estimate": {
 			"post": {
 				"operationId": "Estimate",
 				"responses": {

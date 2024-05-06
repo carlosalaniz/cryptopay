@@ -1,0 +1,15 @@
+/**
+ * Document
+ */
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+
+  body {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    align-items: start;
+    min-height: 100vh;
+  }
+}
